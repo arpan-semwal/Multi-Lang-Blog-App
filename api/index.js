@@ -53,7 +53,9 @@ app.get("/post" , async(req, res) => {
 
 app.get('/post/:id' , async(req, res) => {
     const {id} = req.params;
-   const postDoc = await  Post.findById(id);
+    const { language } = req.query;
+    
+   const postDoc = await  Post.findById(id,language);
    res.json(postDoc);
 })
 
