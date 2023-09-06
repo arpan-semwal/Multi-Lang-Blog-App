@@ -33,11 +33,12 @@ app.post('/post' , uploadMiddleware.single('file'), async(req , res) => { // fir
   const newPath = path+'.'+ext
   fs.renameSync(path , newPath);
 
-  const {title , summary , content} = req.body;
+  const {title , summary , content , language} = req.body;
   const postDoc = await Post.create({
     title,
     summary,
     content,
+    language,
     cover:newPath,
   })
 res.json(postDoc);
@@ -45,6 +46,8 @@ res.json(postDoc);
 
 
 app.get("/post" , async(req, res) => {
+  const { language } = req.query;
+  const query = language ? { language } : {}; 
     res.json(await Post.find()
     .sort({createdAt:-1})
     .limit(20)

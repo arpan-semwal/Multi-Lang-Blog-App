@@ -6,7 +6,9 @@ import "./Style.css"
 const Post = ({_id , title , summary , cover}) => {
    
   return (
+    
     <div className="container">
+      
     <div className='post'>
         <div className="images">
             <Link to={`/post/${_id}`}>

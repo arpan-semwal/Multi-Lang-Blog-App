@@ -7,6 +7,7 @@ const PostSchema = new Schema({
     summary:String,
     content:String,
     cover:String,
+    language:String,
 } , {
     timestamps:true,
 });
