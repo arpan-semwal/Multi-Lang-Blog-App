@@ -38,28 +38,38 @@ app.post('/post' , uploadMiddleware.single('file'), async(req , res) => { // fir
     title,
     summary,
     content,
-    language,
+    language:language.toLowerCase(),
     cover:newPath,
   })
 res.json(postDoc);
 });
 
 
-app.get("/post" , async(req, res) => {
+app.get("/post", async (req, res) => {
   const { language } = req.query;
-  const query = language ? { language } : {}; 
-    res.json(await Post.find()
-    .sort({createdAt:-1})
-    .limit(20)
-    );
-})
+  const query = language ? { language } : {};
+  res.json(
+    await Post.find()
+      .sort({ createdAt: -1 })
+      .limit(20)
+  );
+});
 
-app.get('/post/:id' , async(req, res) => {
-    const {id} = req.params;
-    const { language } = req.query;
-    
-   const postDoc = await  Post.findById(id,language);
-   res.json(postDoc);
+
+app.get('/post/:id', async (req, res) => {
+  const { id } = req.params;
+  const { language } = req.query;
+
+  const post = await Post.findById(id).exec();
+  if (!post) {
+    return res.status(404).json({ message: 'Post not found' });
+  }
+
+  if (language && post.language !== language) {
+    return res.status(404).json({ message: 'Post not available in selected language' });
+  }
+
+  res.json(post);
 });
 
 

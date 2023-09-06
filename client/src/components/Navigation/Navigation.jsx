@@ -9,6 +9,8 @@ const Navigation = () => {
         <nav>
             <Link to="/createPost">CreatePost</Link>
         </nav>
+
+        
     </header>
     </main>
    
