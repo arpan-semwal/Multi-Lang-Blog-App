@@ -45,6 +45,9 @@ const CreatePost = () => {
       <div className="center-card">
       
       <div className="card">
+        <div>
+          hello
+        </div>
         <form onSubmit={createNewPost}>
          
           <input 
